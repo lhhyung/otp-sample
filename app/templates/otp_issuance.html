@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP 발급</title>
+</head>
+<body>
+    <h1>OTP 발급 페이지</h1>
+
+    <form action="/generate_otp" method="post">
+        <button type="submit">OTP 발급</button>
+    </form>
+
+    {% if qr_code_img %}
+    <h2>OTP QR 코드</h2>
+    <img src="data:image/png;base64,{{ qr_code_img }}" alt="OTP QR Code">
+
+    <h2>OTP 인증</h2>
+    <form action="/verify_otp" method="post">
+        <label for="otp">6자리 OTP 입력:</label>
+        <input type="text" id="otp" name="otp" required maxlength="6" pattern="[0-9]{6}">
+        <button type="submit">OTP 인증</button>
+    </form>
+    {% endif %}
+
+    {% if message %}
+        <h2>{{ message }}</h2>
+    {% endif %}
+</body>
+</html>
